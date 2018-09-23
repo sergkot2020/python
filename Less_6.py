@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#EASY (решение объеденил в одном коде)
+# EASY (решение объеденил в одном коде)
 # Задача - 1
 # Опишите несколько классов TownCar, SportCar, WorkCar, PoliceCar
 # У каждого класса должны быть следующие аттрибуты:
@@ -11,60 +11,61 @@
 # Задача - 2
 # Посмотрите на задачу-1 подумайте как выделить общие признаки классов
 # в родительский и остальные просто наследовать от него.
+print('-----------------------ЗАДАЧА №1 + 2 (easy)--------------------------')
 
 import random
 
-# #Родительский класс
-# class Car:
-#
-#     def __init__(self, speed, color, name):
-#         self._speed = speed
-#         self._color = color
-#         self._name = name
-#         print('*****************\n'
-#               'Название - {}\n'
-#               'Максимальная скорость {}\n'
-#               'Цвет - {}'.format(self._name, self._speed, self._color))
-#
-#     def go (self):
-#         print('поехали...')
-#
-#     def stop (self):
-#          print('остановилась...')
-#
-#     def turn (self, direction):
-#         print('повернули на {}'.format(direction))
-#
-# class TownCar(Car):
-#     def __init__(self, speed, color, name, boolean):
-#         self._is_police = boolean
-#         super().__init__(speed, color, name)
-#         print('Полицейская машина - {}'.format(self._is_police))
-#
-# class SportCar(TownCar):
-#     def nitro (self):
-#         print('Включаем суперскорость')
-#
-# class WorkCar(TownCar):
-#     def pogruzka (self):
-#         print('Включаем погрузочный кран...')
-#
-# class PolisCar(TownCar):
-#     def sirena (self):
-#         print('Включаем сирену...')
-#
-#
-# def turn_random ():
-#     direction= {1:'left', 2:'right'}
-#     return(direction[random.randint(1,2)])
-#
-# first_car = TownCar(160,'white','BMW', False)
-# second_car = SportCar(260,'red','MACLAREN',False)
-# third_car = WorkCar(90,'brown','ГАЗон', False)
-# fourth_car = PolisCar(200,'blue','FORD', True)
-#
+#Родительский класс
+class Car:
 
-#NORMAL-------------------------------------------------------------------
+    def __init__(self, speed, color, name):
+        self._speed = speed
+        self._color = color
+        self._name = name
+        print('*****************\n'
+              'Название - {}\n'
+              'Максимальная скорость {}\n'
+              'Цвет - {}'.format(self._name, self._speed, self._color))
+
+    def go (self):
+        print('поехали...')
+
+    def stop (self):
+         print('остановилась...')
+
+    def turn (self, direction):
+        print('повернули на {}'.format(direction))
+
+class TownCar(Car):
+    def __init__(self, speed, color, name, boolean):
+        self._is_police = boolean
+        super().__init__(speed, color, name)
+        print('Полицейская машина - {}'.format(self._is_police))
+
+class SportCar(TownCar):
+    def nitro (self):
+        print('Включаем суперскорость')
+
+class WorkCar(TownCar):
+    def pogruzka (self):
+        print('Включаем погрузочный кран...')
+
+class PolisCar(TownCar):
+    def sirena (self):
+        print('Включаем сирену...')
+
+
+def turn_random ():
+    direction= {1:'left', 2:'right'}
+    return(direction[random.randint(1,2)])
+
+first_car = TownCar(160,'white','BMW', False)
+second_car = SportCar(260,'red','MACLAREN',False)
+third_car = WorkCar(90,'brown','ГАЗон', False)
+fourth_car = PolisCar(200,'blue','FORD', True)
+
+
+# NORMAL-------------------------------------------------------------------
 # Задача - 1
 # Ранее мы с вами уже писали игру, используя словари в качестве
 # структур данных для нашего игрока и врага, давайте сделаем новую, но уже с ООП
@@ -77,6 +78,8 @@ import random
 # Функция подсчета урона должна быть инкапсулирована
 # Вам надо описать игровой цикл так же через класс.
 # Создайте экземпляры классов, проведите бой. Кто будет атаковать первым оставляю на ваше усмотрение.
+print('-----------------------ЗАДАЧА №1(normal)--------------------------\n'
+      'Каждый раунд игрок наносящий удар определяется random`но')
 
 class Person:
     def __init__(self, name, health, damage, armor):
@@ -136,7 +139,7 @@ batle.round(player, enemy)
 
 
 
-#HARD---------------------------------------------------------------------
+# HARD---------------------------------------------------------------------
 # Задача - 1
 # Вам необходимо создать завод по производству мягких игрушек для детей.
 # Вам надо продумать структуру классов,
@@ -150,3 +153,52 @@ batle.round(player, enemy)
 # Задача - 2
 # Доработайте нашу фабрику, создайте по одному классу на каждый тип, теперь надо в классе фабрика
 # исходя из типа игрушки отдавать конкретный объект класса, который наследуется от базового - Игрушка
+
+print('-----------------------ЗАДАЧА №1+2(hard)--------------------------')
+
+
+class ToyData:
+
+    def __init__(self, name, color, type):
+        self.name = name
+        self.color = color
+        self.type = type
+
+
+class FabricToy(ToyData):
+
+    def purchase(self):
+        return ('Закупка материала...')
+
+    def sewing(self):
+        return ('Пошив игрушки')
+
+    def painting(self):
+        return ('Покраска')
+
+    def result(self):
+        print('************************\n'
+              '{}\n'
+              '{}\n'
+              '{}\n'
+              'Изготовлена: {}\n'
+              'Цвет: {}\n'
+              'Тип: {}\n'.format(self.purchase(), self.sewing(), self.painting(), self.name, self.color, self.type))
+
+
+toy = FabricToy('Машка', 'white', 'charecter') # первая часть задачки hard
+toy.result()
+
+
+class AnimalToy(FabricToy):
+    pass
+
+
+class CharecterToy(FabricToy):
+    pass
+
+toy2 = AnimalToy('Бегемотик', 'Желтый', 'зверушка')
+toy3 = CharecterToy('Чебурашка', 'Коричневый', 'мульт-герой')
+
+toy2.result()
+toy3.result()
