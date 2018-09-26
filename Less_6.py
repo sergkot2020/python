@@ -159,46 +159,47 @@ print('-----------------------ЗАДАЧА №1+2(hard)-------------------------
 
 class ToyData:
 
-    def __init__(self, name, color, type):
+    def __init__(self, name, color):
         self.name = name
         self.color = color
-        self.type = type
 
 
-class FabricToy(ToyData):
+class FabricToy:
 
     def purchase(self):
-        return ('Закупка материала...')
+        print('Закупка материала...')
 
     def sewing(self):
-        return ('Пошив игрушки')
+        print('Пошив игрушки')
 
     def painting(self):
-        return ('Покраска')
+        print('Покраска')
 
-    def result(self):
-        print('************************\n'
-              '{}\n'
-              '{}\n'
-              '{}\n'
-              'Изготовлена: {}\n'
-              'Цвет: {}\n'
-              'Тип: {}\n'.format(self.purchase(), self.sewing(), self.painting(), self.name, self.color, self.type))
-
-
-toy = FabricToy('Машка', 'white', 'charecter') # первая часть задачки hard
-toy.result()
+    def result(self, name, color, type):
+        self.purchase()
+        self.sewing()
+        self.painting()
+        if type == 'зверушка':
+            return AnimalToy(name, color)
+        elif type == 'мульт-герой':
+            return CharecterToy(name, color)
 
 
-class AnimalToy(FabricToy):
-    pass
+class AnimalToy(ToyData):
+    def __init__(self, name, color):
+        super().__init__(name, color)
+        self.type = 'зверушка'
 
 
-class CharecterToy(FabricToy):
-    pass
+class CharecterToy(ToyData):
+    def __init__(self, name, color):
+        super().__init__(name, color)
+        self.type = 'мульт-герой'
 
-toy2 = AnimalToy('Бегемотик', 'Желтый', 'зверушка')
-toy3 = CharecterToy('Чебурашка', 'Коричневый', 'мульт-герой')
+fabric = FabricToy()
 
-toy2.result()
-toy3.result()
+toy = fabric.result('Бегемотик', 'Желтый', 'зверушка')
+print(toy.name, toy.color, toy.type)
+
+toy3 = fabric.result('Чебурашка', 'Коричневый', 'мульт-герой')
+print(toy3.name, toy3.color, toy3.type)
