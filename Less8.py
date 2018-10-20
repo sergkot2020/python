@@ -123,11 +123,11 @@ class CityBase:
         self._name_gz = 'city.gz'
         self._name_json = 'city.json'
         if os.name == 'posix':
-            delimiter = '/'
+            self.delimiter = '/'
         else:
-            delimiter = '\\'
-        self.full_name = os.getcwd() + delimiter + self._name_gz
-        self.name_base_json = os.getcwd() + delimiter + self._name_json
+            self.delimiter = "\\"
+        self.full_name = os.getcwd() + self.delimiter + self._name_gz
+        self.name_base_json = os.getcwd() + self.delimiter + self._name_json
 
     def is_downloaded(self):
         check = os.path.isfile(self.full_name)
@@ -146,21 +146,20 @@ class CityBase:
             except Exception:
                 print('Нет соединения с интернетом')
 
+
     def download_file(self):
-        try:
-            urllib.request.urlretrieve(self.url, self._name_gz)
-            with urllib.request.urlopen(self.url) as response, open(self._name_gz, 'wb', encoding="utf8") as out_file:
-                shutil.copyfileobj(response, out_file)
-        except Exception:
-            print('Нет соединения с инетом')
+
+        urllib.request.urlretrieve(self.url, self._name_gz)
+        with urllib.request.urlopen(self.url) as response, open(self._name_gz, 'wb', ) as out_file:
+            shutil.copyfileobj(response, out_file)
 
     def unzip_file(self):
         with gzip.open(self.full_name) as file_in:
-            with open(self.name_base_json, 'wb', encoding="utf8") as file_out:
+            with open(self.name_base_json, 'wb') as file_out:
                 shutil.copyfileobj(file_in, file_out)
 
     def _create_dict(self):
-        file = open(self.name_base_json, encoding="utf8")
+        file = open(self.name_base_json, encoding='utf-8')
         city_dict = json.load(file)
         file.close()
         return city_dict
@@ -175,7 +174,7 @@ class CityBase:
             else:
                 return self._create_dict()
         except Exception:
-            print('Нет соединения с...')
+            print('Нет соединения с интернетом')
 
 
 class SqlBase:
@@ -185,14 +184,14 @@ class SqlBase:
         self._city_table = 'city_table'
         self.path = os.getcwd()
         if os.name == 'posix':
-            delimiter = '/'
+            self.delimiter = '/'
         else:
-            delimiter = '\\'
-        self._name_long = '{}{}www.artlebedev.ru.txt'.format(self.path, delimiter)
+            self.delimiter = '\\'
+        self._name_long = '{}{}www.artlebedev.ru.txt'.format(self.path, self.delimiter)
         self.url_name_country = 'https://www.artlebedev.ru/country-list/tab/'
 
     def create_sql(self, city_dict):
-        check = os.path.isfile(os.getcwd() + '/' + self._name)
+        check = os.path.isfile(os.getcwd() + self.delimiter + self._name)
         if check is False:
             sql = sqlite3.connect(self._name)
             c = sql.cursor()
@@ -272,7 +271,7 @@ class SqlBase:
             return 'В базе нет данных по выбранному городу'
 
     def country_list(self):
-
+#///////////////////////////////////////////////////////////// не создается таблица!
         sql = sqlite3.connect(self._name)
         c = sql.cursor()
         all_country = c.execute('SELECT DISTINCT Страна FROM {}'.format(self._city_table))
@@ -299,12 +298,12 @@ class SqlBase:
         if os.path.isfile(os.getcwd()+self._name_long) is not True:
             try:
                 urllib.request.urlretrieve(self.url_name_country, self._name_long)
-                with urllib.request.urlopen(self.url_name_country) as response, open(self._name_long, 'wb', encoding="utf8") as out_file:
+                with urllib.request.urlopen(self.url_name_country) as response, open(self._name_long, 'wb') as out_file:
                     shutil.copyfileobj(response, out_file)
             except Exception:
                 print('Нет соединения с инетом')
 
-        file = open(self._name_long, encoding="utf8")
+        file = open(self._name_long, encoding='utf-8')
         i = 0
         short = []
         long = []
