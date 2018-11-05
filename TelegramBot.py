@@ -10,7 +10,7 @@ import time
 import datetime
 import os
 
-TOKEN = 'Сюда надо ввести токен'
+TOKEN = '774236595:AAHhCBuB8Vifq5OQvlfoarYQ3C4aQB'
 BASE_URL = 'https://api.telegram.org/'
 TIME_LIMIT = 18000  # Время в секундах, через этот промежуток отправляется повторное сообщение
 
@@ -27,8 +27,6 @@ new_user = []
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message: Message):
     bot.reply_to(message, 'Чё надо?')
-    # print(message.entities[].type)
-    # [Daniil Gentili](mention: 123456789)
 
 # Привиетствие новых членов чата
 @bot.message_handler(content_types=['new_chat_members'])
@@ -53,9 +51,9 @@ def echo_all(message):
     user_id = message.from_user.id
 
     if is_whois or is_whois2:
-        bot.reply_to(message, 'Добро пожаловать.')
         for index, user in enumerate(new_user):
             if user['id'] == user_id:
+                bot.reply_to(message, 'Добро пожаловать.')
                 new_user.pop(index)
 
     for index, user in enumerate(new_user):
