@@ -10,7 +10,7 @@ import time
 import datetime
 import os
 
-TOKEN = '774236595:AAHhCBuB8Vifq5OQvlfoarYQ3C4aQB'
+TOKEN = '774236595:AAHhCBuB8Vifq5OQvlfoarYQ3C4aQB7BV'
 BASE_URL = 'https://api.telegram.org/'
 TIME_LIMIT = 18000  # Время в секундах, через этот промежуток отправляется повторное сообщение
 
@@ -33,13 +33,15 @@ def send_welcome(message: Message):
 def welcome(message: Message):
     chat_id = message.chat.id
     new = message.new_chat_member
-    bot.send_message(chat_id, f'[{new.first_name}](tg://user?id={new.id}),  доброго времени суток! \n'
-                              f'Xочу обратить Ваше внимание на то, что у нас принято представляться и немного рассказывать о себе'
-                              f' используя тэги #whois или #представляемся. \n'
-                              f'Спасибо за внимание!', parse_mode="markdown")
-    now = time.time()
-    user ={'id': new.id,'first_name': new.first_name, 'told_about': False, 'data': now, 'chat_id': chat_id}
-    new_user.append(user)
+    is_bot = new.is_bot
+    if is_bot is not True:
+        bot.send_message(chat_id, f'[{new.first_name}](tg://user?id={new.id}),  доброго времени суток! \n'
+                                  f'Xочу обратить Ваше внимание на то, что у нас принято представляться и немного рассказывать о себе'
+                                  f' используя тэги #whois или #представляемся. \n'
+                                  f'Спасибо за внимание!', parse_mode="markdown")
+        now = time.time()
+        user ={'id': new.id,'first_name': new.first_name, 'told_about': False, 'data': now, 'chat_id': chat_id}
+        new_user.append(user)
 
 # Фильтруем все сообщения чата и ищем хуиз
 @bot.message_handler(func=lambda message: True)
