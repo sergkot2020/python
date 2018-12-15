@@ -1,0 +1,42 @@
+/usr/bin/python3.6 /home/novozhilovsv/PROJECT/test/TelegramBot.py
+{'ok': True,
+ 'result': [{'message': {'chat': {'all_members_are_administrators': True,
+                                  'id': -297373615,
+                                  'title': 'test',
+                                  'type': 'group'},
+                         'date': 1540847254,
+                         'entities': [{'length': 6,
+                                       'offset': 0,
+                                       'type': 'bot_command'}],
+                         'from': {'first_name': 'Sergey',
+                                  'id': 355832203,
+                                  'is_bot': False,
+                                  'language_code': 'ru',
+                                  'last_name': 'Novozhilov'},
+                         'message_id': 18,
+                         'text': '/start'},
+             'update_id': 5012470}]}
+
+
+@bot.message_handler(content_types=['new_chat_members'])
+def welcome(message: Message):
+    new = message.new_chat_member
+    print(new)
+
+{'id': 529629444, 'is_bot': False, 'first_name': 'Yana', 'username': None, 'last_name': 'Gutina', 'language_code': None}
+
+
+  print(new['id'])
+TypeError: 'User' object is not subscriptable
+
+
+exec input:
+await event.respond('[Серж](tg://user?id=355832203)')
+exec output:
+success
+
+[s@srv bot]$ python36 TelegramBot.py &
+[1] 56852
+[s@srv bot]$
+
+TOKEN = '774236595:AAHhCBuB8Vifq5OQvlfoarYQ3C4aQB7BVwk'
