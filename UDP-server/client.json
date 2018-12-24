@@ -1,0 +1,10 @@
+{
+  "HOST": "localhost",
+  "PORT": 22111,
+  "COUNT": 15,
+  "TIME_REQ": 0.1,
+  "TIME_ANSWER": 6
+}
+
+
+
